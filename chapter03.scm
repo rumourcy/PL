@@ -10,7 +10,7 @@
     (cond
      ((null? l) '())
      (else
-      (cons (car l) (firsts (cdr l)))))))
+      (cons (car (car l)) (firsts (cdr l)))))))
 
 (define insertR
   (lambda (new old lat)
