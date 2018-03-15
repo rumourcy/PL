@@ -80,3 +80,19 @@
 (define rember
   (lambda (a l)
     ((insert-g eq? seqrem) #f a l)))
+
+(define atom-to-function
+  (lambda (x)
+    (cond
+     ((eq? x '+) add)
+     ((eq? x '*) multi)
+     (else pow))))
+
+(define value
+  (lambda (nexp)
+    (cond
+     ((atom? nexp) nexp)
+     (else
+      ((atom-to-function (car nexp))
+       (value (car (cdr nexp)))
+       (value (car (cdr (cdr nexp)))))))))
