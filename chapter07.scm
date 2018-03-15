@@ -63,3 +63,46 @@
      (else
       (cons (car set1)
 	    (union (cdr set1) set2))))))
+
+(define intersectall
+  (lambda (l-set)
+    (cond
+     ((null? (cdr l-set))
+      (car l-set))
+     (else
+      (intersect (car l-set)
+		 (intersectall (cdr l-set)))))))
+
+(define a-pair?
+  (lambda (x)
+    (cond
+     ((atom? x) #f)
+     ((null? x) #f)
+     ((null? (cdr x)) #f)
+     ((null? (cdr (cdr x))) #t)
+     (else #f))))
+
+(define fun?
+  (lambda (rel)
+    (set? (firsts rel))))
+
+(define first
+  (lambda (p)
+    (car p)))
+
+(define second
+  (lambda (p)
+    (car (cdr p))))
+
+(define build
+  (lambda (s1 s2)
+    (cons s1 (cons s2 '()))))
+
+(define revrel
+  (lambda (rel)
+    (cond
+     ((null? rel) '())
+     (else
+      (cons (build (second (car rel))
+		   (first (car rel)))
+	    (revrel (cdr rel)))))))
