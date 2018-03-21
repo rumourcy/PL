@@ -197,3 +197,19 @@
      ((eq? name (quote number?))
       (number? (first vals))))))
 
+(define new-entry build)
+
+(define extend-table cons)
+
+(define third
+  (lambda (l)
+    (car (cdr (cdr l)))))
+
+(define apply-closure
+  (lambda (closure vals)
+    (meaning (body-of closure)
+	     (extend-table
+	      (new-entry
+	       (formals-of closure)
+	       vals)
+	      (table-of closure)))))
